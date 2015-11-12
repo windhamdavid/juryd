@@ -1,0 +1,9 @@
+{
+  "name": "juryd.com",
+  "private": true,
+  "dependencies": {
+    "metalsmith-templates": "^0.7.0",
+    "metalsmith-permalinks": "^0.1.1",
+    "metalsmith": "^2.1.0",
+  }
+}
