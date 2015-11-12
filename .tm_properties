@@ -1,0 +1,12 @@
+exclude        = "{$exclude,*.log}"
+excludeDirectories = "node_modules, build,tmp,log"
+
+showInvisibles = true
+softWrap       = false
+wrapColumn     = 80
+softTabs       = true
+tabSize        = 3
+
+[ *.{txt,md,mdown,markdown} ]
+spellChecking  = true
+tabSize        = 4
