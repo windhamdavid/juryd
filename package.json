@@ -1,9 +1,28 @@
 {
   "name": "juryd.com",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": "http://juryd.com",
+  "author": "David A. Windham",
   "private": true,
+  "scripts": {
+	"gulp": "gulp",
+	"build": "node build.js",
+	"serve": "node build.js serve"
+  },
+  "repository": {
+	"type": "git",
+	"url": "git+https://github.com/windhamdavid/juryd.git"
+  },
+  "engines": {
+	"node": ">=4.0.0"
+  },
   "dependencies": {
-    "metalsmith-templates": "^0.7.0",
-    "metalsmith-permalinks": "^0.1.1",
-    "metalsmith": "^2.1.0",
+	"gulp": "^3.9.0",
+	"metalsmith-serve": "^0.0.4",
+	"metalsmith-watch": "^1.0.1",
+	"metalsmith-templates": "^0.7.0",
+	"metalsmith-permalinks": "^0.1.1",
+	"metalsmith": "^2.1.0"
   }
 }
