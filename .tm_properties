@@ -1,12 +1,12 @@
-exclude        = "{$exclude,*.log}"
-excludeDirectories = "node_modules, build,tmp,log"
+dwExtraExcludes = "log,vendor,tmp,node_modules,app"
+excludeInFileChooser  = "{$excludeInFileChooser,$dwExtraExcludes}" 
+excludeInFolderSearch = "{$excludeInFolderSearch,$dwExtraExcludes}" 
+excludeInBrowser      = "{$excludeInBrowser,log,vendor,tmp,node_modules}" 
+includeFiles = "{.jshintrc,.gitignore}"
 
 showInvisibles = true
-softWrap       = false
-wrapColumn     = 80
-softTabs       = true
-tabSize        = 3
+softTabs = true
+tabSize = 2
 
-[ *.{txt,md,mdown,markdown} ]
-spellChecking  = true
-tabSize        = 4
+projectDirectory = "$CWD"
+windowTitle = "$TM_DISPLAYNAME — ${CWD/^.*\///} ($TM_SCM_BRANCH)"
