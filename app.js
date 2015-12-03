@@ -1,21 +1,29 @@
-var build = require('./build');
 var express = require('express');
+var bodyParser = require('body-parser');
+var events = require('events');
+var http = require('http');
+var path = require('path');
+
+
+
 var app = express();
 
-//var config = require('./config.json')[process.env.NODE_ENV || 'development'];
+var config = {
+  development: require('./config-dev.js'),
+  production: require('./config.js')
+};
 
-var env = process.env.NODE_ENV || 'development';
-if ('development' == env) {
-   //Changed for Express 4
-}
+var app = express(),
+    server = http.createServer(app);
+    server.listen(conf.port);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'app')));
 
 
-
-app.use(express.static(__dirname + '/build'));
-
-var port = process.env.PORT || 3000;
-
-app.listen(process.env.PORT, function(){
-  console.log('running at http://localhost:' + process.env.PORT + '');
+var logger = new events.EventEmitter();
+logger.on('newEvent', function(event, data) {
+  console.log('%s: %s', event, JSON.stringify(data));
 });
 
