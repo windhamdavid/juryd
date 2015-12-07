@@ -42,23 +42,44 @@ var buildTask = function() {
     .pipe(gulp.dest('./app'));
   gulp.src('./src/img/*')
     .pipe(gulp.dest('./app/img'));
-  gulp.src(['./src/css/main.css'])
+  gulp.src(['./src/css/bootstrap.css','./src/css/main.css'])
     .pipe(concat('style.min.css'))
     .pipe(minifycss())
     .pipe(gulp.dest('./app/css'));
-  gulp.src([])
-    .pipe(concat('vendor.min.js'))
+  gulp.src(['./src/js/jquery.js','./src/js/bootstrap.js'])
+    .pipe(concat('lib.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./app/js'));
-  gulp.src(['./src/js/script.js'])
-    .pipe(concat('script.min.js'))
+  gulp.src(['./src/js/main.js'])
+    .pipe(concat('main.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./app/js'));
-  console.log('BUILD: Build Complete');
+  console.log('\033[31m BUILD: Build Complete');
 };
 
 gulp.task('build', function() {
   buildTask();
+});
+
+var watchTask = function() {
+  gulp.src('./src/app.js')
+    .pipe(gulp.dest('./app'));
+  gulp.src('./src/index.html')
+    .pipe(minifyHTML())
+    .pipe(gulp.dest('./app'));
+  gulp.src(['./src/css/bootstrap.css', './src/css/main.css'])
+    .pipe(concat('style.min.css'))
+    .pipe(minifycss())
+    .pipe(gulp.dest('./app/css'));
+  gulp.src(['./src/js/main.js'])
+    .pipe(concat('main.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./app/js'));
+  console.log('\033[31m WATCH: Watch Complete');
+};
+
+gulp.task('watch', function() {
+  watchTask();
 });
 
 var nodemonTask = function() {
