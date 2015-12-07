@@ -27,6 +27,7 @@ var cleanTask = function () {
     '!app/css/',
     '!app/fonts/',
     '!app/js/',
+    '!app/views/',
   ]);
 };
 
@@ -40,6 +41,10 @@ var buildTask = function() {
   gulp.src('./src/index.html')
     .pipe(minifyHTML())
     .pipe(gulp.dest('./app'));
+  gulp.src('./src/views/*')
+    .pipe(gulp.dest('./app/views'));
+  gulp.src('./src/views/layouts/*')
+    .pipe(gulp.dest('./app/views/layouts'));
   gulp.src('./src/img/*')
     .pipe(gulp.dest('./app/img'));
   gulp.src(['./src/css/bootstrap.css','./src/css/main.css'])
@@ -62,8 +67,10 @@ gulp.task('build', function() {
 });
 
 var watchTask = function() {
-  gulp.src('./src/app.js')
-    .pipe(gulp.dest('./app'));
+  gulp.src('./app.js')
+    .pipe(gulp.dest('./'));
+  gulp.src('./src/views/*')
+    .pipe(gulp.dest('./app/views'));
   gulp.src('./src/index.html')
     .pipe(minifyHTML())
     .pipe(gulp.dest('./app'));
