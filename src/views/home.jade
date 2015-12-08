@@ -1,0 +1,72 @@
+extends layout
+
+block content
+header
+.container-fluid
+  .header-content
+    .header-content-inner
+      .row
+        .col-sm-8
+          h1 Juryd
+          h2 You be the Judge
+          hr
+          h4 Juryd is an application that allows the participants to register and vote.
+        .col-sm-4
+          img.svg(src='img/ribbon.svg')
+    section#about
+      .container
+        .row
+          .col-lg-8
+            img.svg(src='img/ipad.svg')
+          .col-sm-4.text-center
+            h2.section-heading How It Works
+            hr.light
+            p Some Copy
+    section#details
+      .container
+        .row.text-center
+          .col-sm-4
+            h3.section-heading Juried Competition
+            p Some Copy
+          .col-sm-4
+            h3.section-heading Registrant Jury
+            p Some Copy
+          .col-sm-4
+            h3.section-heading Registered Judges
+            p Some Copy
+    section#features
+      .container
+        .row.text-center
+          .col-sm-6
+            h2.section-heading Features
+            p Some Copy
+            img.svg.icon-small.blue-ribbon(src='img/ribbon.svg')
+            img.svg.icon-small.red-ribbon(src='img/ribbon.svg')
+            img.svg.icon-small.yellow-ribbon(src='img/ribbon.svg')
+          .col-sm-6
+            img.svg(src='img/phone.svg')
+    section#account
+      .container
+        .row.text-center
+          .col-sm-6
+            h2.section-heading About
+            p Some Copy
+          .col-sm-6
+            h2.section-heading About
+            p Some Copy
+    section#call
+      .container
+        .row
+          .col-sm-4.col-lg-offset-2.text-center
+            h4.section-heading Connect
+            hr.light
+            p (Social Media Icons)
+          .col-sm-4.text-center
+            h4.section-heading Get the Latest
+            form.form-inline
+              .form-group
+                label.sr-only(for='exampleInputAmount') Email Addresss
+                .input-group
+                  input#email-address.form-control(type='text', placeholder='Email Address')
+                  .input-group-addon
+                    button.btn.btn-primary(type='submit') GO

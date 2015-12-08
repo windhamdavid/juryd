@@ -100,11 +100,22 @@ var userController = require('./controllers/user');
 
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
-//app.post('/login', userController.postLogin);
+app.post('/login', userController.postLogin);
+app.get('/logout', userController.logout);
+app.get('/forgot', userController.getForgot);
+app.post('/forgot', userController.postForgot);
+app.get('/reset/:token', userController.getReset);
+app.post('/reset/:token', userController.postReset);
 app.get('/register', userController.getSignup);
 app.post('/register', userController.postSignup);
+app.get('/account', passportConf.isAuthenticated, userController.getAccount);
+app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
+app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
+app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
+app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
-
+//app.get('/contact', contactController.getContact);
+//app.post('/contact', contactController.postContact);
 
 /************* log **************/
 
