@@ -1,4 +1,17 @@
 {
+  "globals": { 
+    "console": false,
+    "exports": false,
+    "module": false,
+    "require": false
+  },
+  "predef": [
+    "console",
+    "exports",
+    "module",
+    "require",
+    "__dirname"
+  ],
 	"node": true,
 	"esnext": true,
 	"bitwise": true,

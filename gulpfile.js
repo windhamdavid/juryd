@@ -41,7 +41,7 @@ var buildTask = function() {
   gulp.src('./src/index.html')
     .pipe(minifyHTML())
     .pipe(gulp.dest('./app'));
-  gulp.src('./src/views/*')
+  gulp.src('./src/views/**/*')
     .pipe(gulp.dest('./app/views'));
   gulp.src('./src/views/layouts/*')
     .pipe(gulp.dest('./app/views/layouts'));

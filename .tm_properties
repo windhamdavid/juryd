@@ -9,4 +9,5 @@ softTabs = true
 tabSize = 2
 
 projectDirectory = "$CWD"
+TM_PROJECT_DIRECTORY = "$projectDirectory"
 windowTitle = "$TM_DISPLAYNAME — ${CWD/^.*\///} ($TM_SCM_BRANCH)"
