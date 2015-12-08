@@ -6,13 +6,9 @@
     "__dirname"
   ],
 
-
   "bitwise":      true,
   "curly":        true,
-  "eqeqeq":       false,
-  "forin":        false,
   "immed":        true,
-  "latedef":      false,
   "newcap":       true,
   "noarg":        true,
   "noempty":      true,
@@ -20,13 +16,8 @@
   "plusplus":     false,
   "regexp":       false,
   "undef":        true,
-  "strict":       false,
   "trailing":     true,
-
-
-  "asi":          false,
   "boss":         true,
-  "debug":        false,
   "eqnull":       true,
   "es5":          true,
   "esnext":       true,
@@ -45,27 +36,14 @@
   "regexdash":    false,
   "scripturl":    false,
   "shadow":       true,
-  "smarttabs":    true,
+  "smarttabs":    false,
   "sub":          false,
   "supernew":     false,
   "validthis":    true,
-
-
+  "white":        true,
   "browser":      true,
-  "couch":        false,
-  "devel":        false,
-  "dojo":         false,
   "jquery":       true,
-  "mootools":     false,
   "node":         true,
-  "nonstandard":  false,
-  "prototypejs":  false,
-  "rhino":        false,
-  "wsh":          false,
+  "strict":       false
 
-  
-  "nomen":        false,
-  "onevar":       false,
-  "passfail":     false,
-  "white":        false
 }

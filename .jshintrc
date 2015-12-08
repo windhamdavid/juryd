@@ -1,10 +1,4 @@
 {
-  "globals": { 
-    "console": false,
-    "exports": false,
-    "module": false,
-    "require": false
-  },
   "predef": [
     "console",
     "exports",
@@ -21,5 +15,5 @@
 	"noarg": true,
 	"undef": true,
 	"unused": "vars",
-	"strict": true
+	"strict": false
 }
