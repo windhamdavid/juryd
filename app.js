@@ -52,7 +52,7 @@ app.engine('.hbs', exphbs({
   layoutsDir:'app/views/layouts',
   partialsDir:'app/views/partials'
 }));
-app.set('view engine', '.hbs');
+app.set('view engine', 'jade');
 app.set('views', path.join(__dirname, 'app/views'));
 
 
