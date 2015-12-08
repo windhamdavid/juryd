@@ -1,8 +1,10 @@
 /*global require:true, __dirname:true */
 
 var express = require('express');
-var session = require('express-session');
 var exphbs = require('express-handlebars');
+var session = require('express-session');
+var expressValidator = require('express-validator');
+var flash = require('express-flash');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
@@ -11,6 +13,12 @@ var events = require('events');
 var http = require('http');
 var path = require('path');
 var logger = require('morgan');
+var lusca = require('lusca');
+var methodOverride = require('method-override');
+var _ = require('lodash');
+var mongoose = require('mongoose');
+var MongoStore = require('connect-mongo')(session);
+var passport = require('passport');
 
 var app = express();
 
@@ -18,9 +26,14 @@ var config = {
   development: require('./config/config-dev.js'),
   production: require('./config/config.js')
 };
-var secrets = require('./config/secrets');
+var secure = require('./config/secure');
 var passportConf = require('./config/passport');
 
+mongoose.connect(secure.db);
+mongoose.connection.on('error', function() {
+  console.log('MongoDB Connection Error!');
+  process.exit(1);
+});
 
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
