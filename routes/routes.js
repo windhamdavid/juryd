@@ -1,25 +1,23 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
+
 var path = require('path');
 var secure = require('../config/secure');
 var passportConf = require('../config/passport');
-
-app.use(express.static(path.join(__dirname, './app'), { maxAge: 31557600000 }));
 
 
 /********** routes controllers **************/
 
 var homeController = require('../controllers/home');
-var staticController = require('../controllers/static');
 var userController = require('../controllers/user');
 var contactController = require('../controllers/contact');
 var apiController = require('../controllers/api');
 
 
-router.get('/', homeController.index);
-router.get('/terms', staticController.static);
+/*************** routes *******************/
 
+router.get('/', homeController.index);
 router.get('/login', userController.getLogin);
 router.post('/login', userController.postLogin);
 router.get('/logout', userController.logout);
@@ -38,17 +36,23 @@ router.post('/account/delete', passportConf.isAuthenticated, userController.post
 router.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
 
+/********** oauth routes controllers **************/
+
+
 /********** static routes controllers **************/
 
-
-app.get('/privacy', function(req, res) {
-  res.render('pages/privacy', {
-    title: 'Privacy Policy'
-  });
+router.get('/about', function(req, res) {
+  res.render('pages/about', { title: 'Privacy Policy' });
+});
+router.get('/privacy', function(req, res) {
+  res.render('pages/privacy', { title: 'Privacy Policy' });
+});
+router.get('/terms', function(req, res) {
+  res.render('pages/terms', { title: 'Terms & Conditions' });
 });
 
 
-/********** oauth routes controllers **************/
+
 
 
 module.exports = router

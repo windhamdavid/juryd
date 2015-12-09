@@ -75,7 +75,7 @@ exports.getSignup = function(req, res) {
 
 exports.postSignup = function(req, res, next) {
   req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password must be at least 4 characters long').len(4);
+  req.assert('password', 'Password must be at least 6 characters long').len(6);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
   var errors = req.validationErrors();
@@ -128,6 +128,7 @@ exports.postUpdateProfile = function(req, res, next) {
     }
     user.email = req.body.email || '';
     user.profile.name = req.body.name || '';
+    user.profile.username = req.body.username || '';
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
@@ -141,10 +142,9 @@ exports.postUpdateProfile = function(req, res, next) {
   });
 };
 
-/**
- * POST /account/password
- * Update current password.
- */
+
+/********** POST / Account / Password **************/
+
 exports.postUpdatePassword = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
@@ -171,10 +171,9 @@ exports.postUpdatePassword = function(req, res, next) {
   });
 };
 
-/**
- * POST /account/delete
- * Delete user account.
- */
+
+/********** POST / Account / Delete **************/
+
 exports.postDeleteAccount = function(req, res, next) {
   User.remove({ _id: req.user.id }, function(err) {
     if (err) {
@@ -186,10 +185,9 @@ exports.postDeleteAccount = function(req, res, next) {
   });
 };
 
-/**
- * GET /account/unlink/:provider
- * Unlink OAuth provider.
- */
+
+/********** POST / Account / Oauth **************/
+
 exports.getOauthUnlink = function(req, res, next) {
   var provider = req.params.provider;
   User.findById(req.user.id, function(err, user) {
@@ -206,10 +204,8 @@ exports.getOauthUnlink = function(req, res, next) {
   });
 };
 
-/**
- * GET /reset/:token
- * Reset Password page.
- */
+/********** GET / Password / :Token **************/
+
 exports.getReset = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
@@ -231,10 +227,9 @@ exports.getReset = function(req, res) {
     });
 };
 
-/**
- * POST /reset/:token
- * Process the reset password request.
- */
+
+/********** POST / Password / :Token **************/
+
 exports.postReset = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long.').len(4);
   req.assert('confirm', 'Passwords must match.').equals(req.body.password);
@@ -282,8 +277,8 @@ exports.postReset = function(req, res, next) {
       });
       var mailOptions = {
         to: user.email,
-        from: 'hackathon@starter.com',
-        subject: 'Your Hackathon Starter password has been changed',
+        from: 'admin@juryd.com',
+        subject: 'Your Juryd password has been changed',
         text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
       };
@@ -300,10 +295,9 @@ exports.postReset = function(req, res, next) {
   });
 };
 
-/**
- * GET /forgot
- * Forgot Password page.
- */
+
+/********** GET / Password / Forgot **************/
+
 exports.getForgot = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
@@ -313,10 +307,10 @@ exports.getForgot = function(req, res) {
   });
 };
 
-/**
- * POST /forgot
- * Create a random token, then the send user an email with a reset link.
- */
+
+
+/********** Post / Password / Forgot / Email **************/
+
 exports.postForgot = function(req, res, next) {
   req.assert('email', 'Please enter a valid email address.').isEmail();
 
@@ -357,8 +351,8 @@ exports.postForgot = function(req, res, next) {
       });
       var mailOptions = {
         to: user.email,
-        from: 'hackathon@starter.com',
-        subject: 'Reset your password on Hackathon Starter',
+        from: 'admin@juryd.com',
+        subject: 'Juryd - Reset your password',
         text: 'You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/reset/' + token + '\n\n' +

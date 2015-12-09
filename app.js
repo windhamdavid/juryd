@@ -102,17 +102,19 @@ app.use(function(req, res, next) {
 
 var router = express.Router();
 app.use(router);
-require('./routes/routes');
+var routes = require('./routes/routes');
 
 var homeController = require('./controllers/home');
-var staticController = require('./controllers/static');
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
+var eventsController = require('./controllers/events');
+var entriesController = require('./controllers/entries');
 var apiController = require('./controllers/api');
 
 
+/********** user routes **************/
+
 router.get('/', homeController.index);
-router.get('/terms', staticController.static);
 
 router.get('/login', userController.getLogin);
 router.post('/login', userController.postLogin);
@@ -131,14 +133,35 @@ router.post('/account/password', passportConf.isAuthenticated, userController.po
 router.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 router.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
+/********** event routes **************/
+
+router.get('/events', eventsController.getEvent);
+
+
+/********** entry routes **************/
+
+router.get('/entry', entriesController.getEntry);
+
 
 /********** static routes controllers **************/
 
-
-app.get('/privacy', function(req, res) {
-  res.render('pages/privacy', {
-    title: 'Privacy Policy'
-  });
+router.get('/about', function(req, res) {
+  res.render('pages/about', { title: 'About' });
+});
+router.get('/docs', function(req, res) {
+  res.render('pages/docs', { title: 'Documentation' });
+});
+router.get('/privacy', function(req, res) {
+  res.render('pages/privacy', { title: 'Privacy Policy' });
+});
+router.get('/terms', function(req, res) {
+  res.render('pages/terms', { title: 'Terms & Conditions' });
+});
+router.get('/status', function(req, res) {
+  res.render('pages/status', { title: 'System Status' });
+});
+router.get('/support', function(req, res) {
+  res.render('pages/support', { title: 'Support' });
 });
 
 
@@ -162,6 +185,17 @@ logger.on('newEvent', function(event, data) {
 
 /************* errors **************/
 
+app.use(function handleNotFound(req, res, next){
+  res.status(404);
+  if (req.accepts('html')) {
+    res.render('404', { url: req.url, error: '404 Not found' });
+    return;
+  }
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  };
+});
 
 if (process.env.NODE_ENV === 'development') {
   app.use(errorHandler())
