@@ -110,20 +110,17 @@ exports.postSignup = function(req, res, next) {
 };
 
 
-/**
- * GET /account
- * Profile page.
- */
+/********** GET / Account **************/
+
 exports.getAccount = function(req, res) {
   res.render('account/profile', {
     title: 'Account Management'
   });
 };
 
-/**
- * POST /account/profile
- * Update profile information.
- */
+
+/********** POST / Account **************/
+
 exports.postUpdateProfile = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) {

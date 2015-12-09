@@ -11,6 +11,8 @@ var errorHandler = require('errorhandler');
 var events = require('events');
 var http = require('http');
 var path = require('path');
+var FileStreamRotator = require('file-stream-rotator')
+var fs = require('fs')
 var logger = require('morgan');
 
 var _ = require('lodash');
@@ -20,6 +22,7 @@ var methodOverride = require('method-override');
 var passport = require('passport');
 var lusca = require('lusca');
 var expressValidator = require('express-validator');
+
 
 
 /********** Config **************/
@@ -32,6 +35,7 @@ var config = {
 };
 var secure = require('./config/secure');
 var passportConf = require('./config/passport');
+
 
 
 /********** MongoDB **************/
@@ -54,6 +58,7 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', 'jade');
 app.set('views', path.join(__dirname, 'app/views'));
+
 
 
 
@@ -95,37 +100,41 @@ app.use(function(req, res, next) {
 
 /********** routes controllers **************/
 
-require('./routes/routes')(app);
+var router = express.Router();
+app.use(router);
+require('./routes/routes');
 
 var homeController = require('./controllers/home');
+var staticController = require('./controllers/static');
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
 var apiController = require('./controllers/api');
 
-app.get('/', homeController.index);
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
-app.get('/logout', userController.logout);
-app.get('/forgot', userController.getForgot);
-app.post('/forgot', userController.postForgot);
-app.get('/reset/:token', userController.getReset);
-app.post('/reset/:token', userController.postReset);
-app.get('/register', userController.getSignup);
-app.post('/register', userController.postSignup);
-app.get('/contact', contactController.getContact);
-app.post('/contact', contactController.postContact);
-app.get('/account', passportConf.isAuthenticated, userController.getAccount);
-app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
-app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
-app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
-app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+
+router.get('/', homeController.index);
+router.get('/terms', staticController.static);
+
+router.get('/login', userController.getLogin);
+router.post('/login', userController.postLogin);
+router.get('/logout', userController.logout);
+router.get('/forgot', userController.getForgot);
+router.post('/forgot', userController.postForgot);
+router.get('/reset/:token', userController.getReset);
+router.post('/reset/:token', userController.postReset);
+router.get('/register', userController.getSignup);
+router.post('/register', userController.postSignup);
+router.get('/contact', contactController.getContact);
+router.post('/contact', contactController.postContact);
+router.get('/account', passportConf.isAuthenticated, userController.getAccount);
+router.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
+router.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
+router.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
+router.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
 
 /********** static routes controllers **************/
 
-var staticController = require('./controllers/static');
 
-app.get('/terms', staticController.static);
 app.get('/privacy', function(req, res) {
   res.render('pages/privacy', {
     title: 'Privacy Policy'
@@ -133,12 +142,16 @@ app.get('/privacy', function(req, res) {
 });
 
 
-/********** oauth routes controllers **************/
-
-
 
 
 /************* log **************/
+
+
+app.use(logger('common', {
+    stream: fs.createWriteStream('./log/access.log', {flags: 'a'})
+}));
+app.use(logger('dev'));
+
 
 var logger = new events.EventEmitter();
 logger.on('newEvent', function(event, data) {
@@ -146,9 +159,14 @@ logger.on('newEvent', function(event, data) {
 });
 
 
+
 /************* errors **************/
 
-app.use(errorHandler());
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(errorHandler())
+};
+
 
 
 /********** app.listen **************/
