@@ -22,7 +22,7 @@ var lusca = require('lusca');
 var expressValidator = require('express-validator');
 
 
-/********** config **************/
+/********** Config **************/
 
 var app = express();
 
@@ -97,6 +97,7 @@ app.use(function(req, res, next) {
 
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
+var contactController = require('./controllers/contact');
 
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
@@ -108,6 +109,8 @@ app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 app.get('/register', userController.getSignup);
 app.post('/register', userController.postSignup);
+app.get('/contact', contactController.getContact);
+app.post('/contact', contactController.postContact);
 app.get('/account', passportConf.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);

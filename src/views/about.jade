@@ -1,0 +1,29 @@
+extends layout
+
+block content
+
+  section#about
+    .container
+      .row
+        .col-sm-8
+          img.svg(src="img/ipad.svg")
+        .col-sm-4.text-center
+          h2.section-heading How It Works
+          hr.light
+          p Some Copy
+  section#call
+    .container
+      .row
+        .col-sm-4.col-lg-offset-2.text-center
+          h4.section-heading Connect
+          hr.light
+          p (Social Media Icons)
+        .col-sm-4.text-center
+          h4.section-heading Get the Latest
+          form.form-inline
+            .form-group
+              label.sr-only(for="exampleInputAmount") Email Addresss
+              .input-group
+                input#email-address.form-control(type="text", placeholder="Email Address")
+                .input-group-addon
+                  button.btn.btn-primary(type="submit") GO

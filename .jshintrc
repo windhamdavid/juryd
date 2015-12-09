@@ -4,7 +4,8 @@
     "exports",
     "module",
     "require",
-    "__dirname"
+    "__dirname",
+    "secure"
   ],
 	"node": true,
 	"esnext": true,

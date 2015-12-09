@@ -5,17 +5,14 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='csrf-token', content=_csrf)
-    title #{title} - Juryd
-    meta(name='description', content='Juryd Judging Everything')
+    title Juryd | #{title}
+    meta(name='description', content='Juryd')
     link(rel='stylesheet', href='/css/style.min.css')
   body
+  
     include partials/header
-
-    section#partial
-          .container
-            .row
-              .col-sm-8.col-sm-offset-2
-                include partials/flash
+    
+    include partials/flash
                 
     block content
 
@@ -23,6 +20,8 @@ html
 
     script(src='/js/lib.min.js')
     script(src='/js/main.min.js')
-    //if lt IE 9
-          script(src='js/html5shiv.min.js')
-          script(src='js/respond.min.js')
+    
+    <!--[if lt IE 9]>
+    script(src='js/html5shiv.min.js')
+    script(src='js/respond.min.js')
+    <!--<![endif]-->
