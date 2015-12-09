@@ -38,10 +38,11 @@ gulp.task('clean', function() {
 
 
 var buildTask = function() {
-  gulp.src('./src/index.html')
-    .pipe(minifyHTML())
-    .pipe(gulp.dest('./app'));
-  gulp.src(['./src/css/bootstrap.css','./src/css/main.css'])
+  gulp.src([
+    './src/css/bootstrap.css',
+    './src/css/font-awesome.css',
+    './src/css/main.css'
+  ])
     .pipe(concat('style.min.css'))
     .pipe(minifycss())
     .pipe(gulp.dest('./app/css'));
@@ -72,10 +73,11 @@ gulp.task('build', function() {
 
 
 var watchTask = function() {
-  gulp.src('./src/index.html')
-    .pipe(minifyHTML())
-    .pipe(gulp.dest('./app'));
-  gulp.src(['./src/css/bootstrap.css', './src/css/main.css'])
+  gulp.src([
+    './src/css/bootstrap.css',
+    './src/css/font-awesome.css',
+    './src/css/main.css'
+  ])
     .pipe(concat('style.min.css'))
     .pipe(minifycss())
     .pipe(gulp.dest('./app/css'));

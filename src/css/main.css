@@ -156,6 +156,25 @@ header .header-content .header-content-inner p {
   }
 }
 
+.skew:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 106px;
+  width: 100%;
+  height: 60px;
+  background: #fff;
+  -webkit-transform: skewY(-20deg);
+  -moz-transform: skewY(-20deg);
+  -ms-transform: skewY(-20deg);
+  -o-transform: skewY(-20deg);
+  transform: skewY(-20deg);
+  -webkit-backface-visibility: hidden;
+}
+.skew {
+  background:#fff;
+}
+
 
 
 /* =================================================

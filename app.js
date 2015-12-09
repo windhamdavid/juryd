@@ -93,11 +93,14 @@ app.use(function(req, res, next) {
 
 
 
-/********** app controllers **************/
+/********** routes controllers **************/
+
+require('./routes/routes')(app);
 
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
+var apiController = require('./controllers/api');
 
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
@@ -117,8 +120,23 @@ app.post('/account/password', passportConf.isAuthenticated, userController.postU
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
-//app.get('/contact', contactController.getContact);
-//app.post('/contact', contactController.postContact);
+
+/********** static routes controllers **************/
+
+var staticController = require('./controllers/static');
+
+app.get('/terms', staticController.static);
+app.get('/privacy', function(req, res) {
+  res.render('pages/privacy', {
+    title: 'Privacy Policy'
+  });
+});
+
+
+/********** oauth routes controllers **************/
+
+
+
 
 /************* log **************/
 
