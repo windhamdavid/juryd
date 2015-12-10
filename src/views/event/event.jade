@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  section#partial
+    .container
+      .row
+        .col-sm-8.col-sm-offset-2.text-center
+          h2 Event
+      hr
+      .row
+        .col-sm-8.col-sm-offset-2
+          ul.nav.nav-pills
+            li(role='presentation', class=title=='event'?'active':undefined)
+              a(href='/event/new') new event
+            li(role='presentation', class=title=='event'?'active':undefined)
+              a(href='/event/search') seach events
+            li(role='presentation', class=title=='event'?'active':undefined)
+              a(href='/event/list') list events
+      hr

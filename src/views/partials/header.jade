@@ -1,4 +1,4 @@
-nav#mainNav.navbar.navbar-default.navbar-fixed-top
+.navbar.navbar-default.navbar-fixed-top
   .container
     .navbar-header
       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
@@ -10,7 +10,12 @@ nav#mainNav.navbar.navbar-default.navbar-fixed-top
         img.svg.icon-small(src="/img/ribbon.svg")
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-
+        li(class=title=='event'?'active':undefined)
+          a(href='/event') event
+        li(class=title=='entry'?'active':undefined)
+          a(href='/entry') entry
+        li(class=title=='api'?'active':undefined)
+          a(href='/api') api
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=title=='Login'?'active':undefined)

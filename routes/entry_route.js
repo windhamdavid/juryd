@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var eventsController = require('../controllers/entry_control');
+var entryController = require('../controllers/entry_control');
 
-router.get('/entry', entryController.getEvent);
+router.get('/entry', entryController.getEntry);
 
 module.exports = router;

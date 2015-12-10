@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
+var browserSync = require('browser-sync').create();
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var minifyHTML = require('gulp-minify-html');
@@ -102,14 +103,31 @@ gulp.task('watch', function() {
 });
 
 
+var syncTask = function() {
+    browserSync.init({
+        proxy: {
+          target: 'https://juryd.macs',
+          ws: true
+        },
+        https: true,
+        files: ['./app/**/*.*'],
+        port: 7000,
+    });
+};
+
+gulp.task('sync', function() {
+  watchTask();
+  syncTask();
+});
+
 var nodemonTask = function() {
   nodemon({
     tasks: ['watch'],
+    env: { 'NODE_ENV': 'development' },
     script: 'app.js',
     verbose: true,
-    env: { 'NODE_ENV': 'development' },
     watch: ['./src/'],
-    ext: 'css js html hbs'
+    ext: 'css js html jade hbs'
   });
 };
 

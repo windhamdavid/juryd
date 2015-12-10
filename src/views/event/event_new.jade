@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+  section#partial
+    .container
+      .row
+        .col-sm-8.col-sm-offset-2
+          ul.nav.nav-pills
+            li(role='presentation', class=title=='event'?'active':undefined)
+              a(href='/event/new') new event
+            li(role='presentation', class=title=='event'?'active':undefined)
+              a(href='/event/search') seach events
+            li(role='presentation', class=title=='event'?'active':undefined)
+              a(href='/event/list') list events
+      hr
+      .row
+        .col-sm-8.col-sm-offset-2.text-center
+          h3 Create An Event      
+      hr
+      .row
+        .col-sm-8.col-sm-offset-2
+          form.form-horizontal(id='event-form', method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
+            .form-group
+              label.col-sm-3.control-label(for='eventname') Event Name
+              .col-sm-7
+                input.form-control(type='text', name='eventname', id='eventname', value='', autofocus)
+            .form-group
+              label.col-sm-3.control-label(for='eventname') Event Description
+              .col-sm-7
+                textarea.form-control(type='textarea', rows='5', name='eventdesc', id='eventdesc', value='', autofocus)
+            .form-group
+              .col-sm-offset-3.col-sm-7
+                button.btn.btn-success(type='submit')
+                  i.fa.fa-balance-scale
+                  | Create Event

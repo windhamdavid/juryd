@@ -5,14 +5,14 @@ var exphbs = require('express-handlebars');
 var session = require('express-session');
 var flash = require('express-flash');
 var cookieParser = require('cookie-parser');
+var compress = require('compression');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var errorHandler = require('errorhandler');
 var events = require('events');
 var http = require('http');
 var path = require('path');
-var FileStreamRotator = require('file-stream-rotator')
-var fs = require('fs')
+var fs = require('fs');
 var logger = require('morgan');
 
 var _ = require('lodash');
@@ -27,15 +27,11 @@ var expressValidator = require('express-validator');
 
 /********** Config **************/
 
-var app = express();
 
-var config = {
-  development: require('./config/config-dev.js'),
-  production: require('./config/config.js')
-};
+var conf = require('./config/config');
 var secure = require('./config/secure');
 var passportConf = require('./config/passport');
-
+var app = express();
 
 
 /********** MongoDB **************/
@@ -50,15 +46,10 @@ mongoose.connection.on('error', function() {
 
 /********** app.engine **************/
 
-app.engine('.hbs', exphbs({ 
-  defaultLayout: 'main', 
-  extname: '.hbs',
-  layoutsDir:'app/views/layouts',
-  partialsDir:'app/views/partials'
-}));
-app.set('view engine', 'jade');
+app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'app/views'));
-
+app.set('view engine', 'jade');
+app.use(compress());
 
 
 
@@ -135,11 +126,18 @@ router.get('/account/unlink/:provider', passportConf.isAuthenticated, userContro
 var eventRouter = require('./routes/event_route');
 app.use('/event', eventRouter);
 
+router.get('/event', eventController.getEvent);
+router.get('/event/new', eventController.getEvent_new);
+router.get('/event/new', passportConf.isAuthenticated, eventController.postEvent_new);
 
 /********** entry routes **************/
 
 var entryRouter = require('./routes/entry_route');
 app.use('/entry', entryRouter);
+
+router.get('/entry', entryController.getEntry);
+router.get('/entry/new', entryController.getEntry_new);
+router.get('/entry/new', passportConf.isAuthenticated, entryController.postEntry_new);
 
 
 /********** static routes controllers **************/
@@ -197,38 +195,26 @@ app.use(function handleNotFound(req, res, next){
   };
 });
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
 if (process.env.NODE_ENV === 'development') {
   app.use(errorHandler())
 };
+
+if (process.env.NODE_ENV !== 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('500', {
+      message: err.message,
+      error: {}
+    });
+  });
+}
 
 
 
 /********** app.listen **************/
 
-app.listen(conf.port), function() {
-  console.log('listening on port %d in %s mode', app.get('port'), app.get('env'));
-}
+app.listen(app.get('port'), function() {
+  console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
+});
 
 module.exports = app;

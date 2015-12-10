@@ -8,3 +8,4 @@ var eventSchema = new mongoose.Schema({
     eventname: { type: String, default: '' }
   }
 });
+
