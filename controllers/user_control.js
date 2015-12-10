@@ -19,6 +19,21 @@ exports.getLogin = function (req, res) {
 };
 
 
+/********** User GET / User URL **************/
+
+exports.getUserURL = function (req, res, next) {
+  return User.find({ username: req.params.id }, function (err, username) {
+    if (username) {
+      res.render('404', { url: req.url, error: '404 Not found' });
+      return;
+    }
+    return res.render('account/user', {
+      title: profile.username,
+      url: profile.username
+    });
+  });
+};
+
 /********** POST / Login **************/
 
 exports.postLogin = function(req, res, next) {
@@ -371,3 +386,5 @@ exports.postForgot = function(req, res, next) {
     res.redirect('/forgot');
   });
 };
+
+

@@ -30,11 +30,11 @@ exports.getEvent_new = function (req, res) {
 
 exports.postEvent_new= function(req, res, next) {
 
-  var errors = req.validationErrors();
-
   var event = new Event({
-    eventname: req.body.evenname
+    eventname: req.body.eventname
   });
+  
+  var errors = req.validationErrors();
 
   Event.findOne({ eventname: req.body.eventname }, function(err, existingEvent) {
     if (existingEvent) {

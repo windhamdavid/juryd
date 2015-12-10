@@ -110,7 +110,7 @@ var syncTask = function() {
           ws: true
         },
         https: true,
-        files: ['./app/**/*.*'],
+        files: ['./src/**/*.*'],
         port: 7000,
     });
 };
@@ -119,6 +119,7 @@ gulp.task('sync', function() {
   watchTask();
   syncTask();
 });
+
 
 var nodemonTask = function() {
   nodemon({

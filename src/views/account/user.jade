@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+  section#partial
+    .container
+      .row
+        .col-sm-6.col-sm-offset-3.text-center
+          h2 #{user.profile.username}
+      hr
+      .row
+        .col-sm-6.col-sm-offset-3.text-center
+          ul.list-group
+            li.list-group-item
+              if user.profile.picture
+                img(src='#{user.profile.picture}')
+              else
+                img(src='#{user.gravatar()}')
+            li.list-group-item
+              p Name: #{user.profile.name}
+            li.list-group-item
+              p Username: #{user.profile.username}
+            li.list-group-item
+              p Location: #{user.profile.location}
+            li.list-group-item
+              p Bio: #{user.profile.bio}
+
+      hr
+      .row

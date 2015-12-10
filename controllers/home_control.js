@@ -1,7 +1,7 @@
 exports.index = function(req, res) {
   if (req.user) {
     if (req.user) {
-      return res.redirect('/:username');
+      return res.redirect('/user/:username');
     }
   }
   res.render('pages/index', {

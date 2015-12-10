@@ -107,6 +107,7 @@ var apiController = require('./controllers/api_control');
 router.get('/', homeController.index);
 router.get('/login', userController.getLogin);
 router.post('/login', userController.postLogin);
+router.get('/user/:username', userController.getUserURL);
 router.get('/logout', userController.logout);
 router.get('/forgot', userController.getForgot);
 router.post('/forgot', userController.postForgot);
@@ -128,7 +129,7 @@ app.use('/event', eventRouter);
 
 router.get('/event', eventController.getEvent);
 router.get('/event/new', eventController.getEvent_new);
-router.get('/event/new', passportConf.isAuthenticated, eventController.postEvent_new);
+router.post('/event/new', passportConf.isAuthenticated, eventController.postEvent_new);
 
 /********** entry routes **************/
 
@@ -137,7 +138,7 @@ app.use('/entry', entryRouter);
 
 router.get('/entry', entryController.getEntry);
 router.get('/entry/new', entryController.getEntry_new);
-router.get('/entry/new', passportConf.isAuthenticated, entryController.postEntry_new);
+router.post('/entry/new', passportConf.isAuthenticated, entryController.postEntry_new);
 
 
 /********** static routes controllers **************/
