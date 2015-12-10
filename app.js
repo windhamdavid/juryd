@@ -103,12 +103,12 @@ app.use(function(req, res, next) {
 var router = express.Router();
 app.use(router);
 
-var homeController = require('./controllers/home');
-var userController = require('./controllers/user');
-var contactController = require('./controllers/contact');
-var eventsController = require('./controllers/events');
-var entriesController = require('./controllers/entries');
-var apiController = require('./controllers/api');
+var homeController = require('./controllers/home_control');
+var userController = require('./controllers/user_control');
+var contactController = require('./controllers/contact_control');
+var eventController = require('./controllers/event_control');
+var entryController = require('./controllers/entry_control');
+var apiController = require('./controllers/api_control');
 
 
 /********** user routes **************/
@@ -132,13 +132,13 @@ router.get('/account/unlink/:provider', passportConf.isAuthenticated, userContro
 
 /********** event routes **************/
 
-var eventRouter = require('./routes/events');
+var eventRouter = require('./routes/event_route');
 app.use('/event', eventRouter);
 
 
 /********** entry routes **************/
 
-var entryRouter = require('./routes/entry');
+var entryRouter = require('./routes/entry_route');
 app.use('/entry', entryRouter);
 
 
