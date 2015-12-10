@@ -7,7 +7,7 @@ var User = require('../models/user');
 var secure = require('../config/secure');
 
 
-/********** GET / Login **************/
+/********** GET / Event **************/
 
 exports.getEvent = function (req, res) {
   res.render('events/event', {

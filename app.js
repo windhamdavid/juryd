@@ -102,7 +102,6 @@ app.use(function(req, res, next) {
 
 var router = express.Router();
 app.use(router);
-var routes = require('./routes/routes');
 
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
@@ -115,7 +114,6 @@ var apiController = require('./controllers/api');
 /********** user routes **************/
 
 router.get('/', homeController.index);
-
 router.get('/login', userController.getLogin);
 router.post('/login', userController.postLogin);
 router.get('/logout', userController.logout);
@@ -125,25 +123,29 @@ router.get('/reset/:token', userController.getReset);
 router.post('/reset/:token', userController.postReset);
 router.get('/register', userController.getSignup);
 router.post('/register', userController.postSignup);
-router.get('/contact', contactController.getContact);
-router.post('/contact', contactController.postContact);
 router.get('/account', passportConf.isAuthenticated, userController.getAccount);
 router.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 router.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 router.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 router.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
+
 /********** event routes **************/
 
-router.get('/events', eventsController.getEvent);
+var eventRouter = require('./routes/events');
+app.use('/event', eventRouter);
 
 
 /********** entry routes **************/
 
-router.get('/entry', entriesController.getEntry);
+var entryRouter = require('./routes/entry');
+app.use('/entry', entryRouter);
 
 
 /********** static routes controllers **************/
+
+router.get('/contact', contactController.getContact);
+router.post('/contact', contactController.postContact);
 
 router.get('/about', function(req, res) {
   res.render('pages/about', { title: 'About' });
@@ -166,9 +168,7 @@ router.get('/support', function(req, res) {
 
 
 
-
 /************* log **************/
-
 
 app.use(logger('common', {
     stream: fs.createWriteStream('./log/access.log', {flags: 'a'})
@@ -195,6 +195,28 @@ app.use(function handleNotFound(req, res, next){
     res.send({ error: 'Not found' });
     return;
   };
+});
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
 });
 
 if (process.env.NODE_ENV === 'development') {
