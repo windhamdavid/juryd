@@ -8,14 +8,39 @@
         span.icon-bar
       a.navbar-brand(href='/')
         img.svg.icon-small(src="/img/ribbon.svg")
+    
     .collapse.navbar-collapse
-      ul.nav.navbar-nav
-        li(class=title=='event'?'active':undefined)
-          a(href='/event') event
-        li(class=title=='entry'?'active':undefined)
-          a(href='/entry') entry
-        li(class=title=='api'?'active':undefined)
-          a(href='/api') api
+      if user
+        ul.nav.navbar-nav
+          li.dropdown(class=title=='Events'?'active':undefined)
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              | Events &nbsp;
+              i.caret
+            ul.dropdown-menu
+              li
+                a(href='/event') event
+              li
+                a(href='/event/new') New Event
+              li
+                a(href='/event/list') List Events
+              li
+                a(href='/event/search') Search Events
+                
+          li.dropdown(class=title=='Entries'?'active':undefined)
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              | Entries &nbsp;
+              i.caret
+            ul.dropdown-menu     
+              li
+                a(href='/entry') entry
+              li
+                a(href='/entry/new') New Entry
+              li
+                a(href='/entry/list') List Entries
+              li
+                a(href='/entry/search') Search Entries
+
+      else
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=title=='Login'?'active':undefined)

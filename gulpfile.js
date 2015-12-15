@@ -51,7 +51,12 @@ var buildTask = function() {
     .pipe(gulp.dest('./app/img'));
   gulp.src('./src/fonts/*')
     .pipe(gulp.dest('./app/fonts'));
-  gulp.src(['./src/js/jquery.js','./src/js/bootstrap.js'])
+  gulp.src([
+    './src/js/jquery.js',
+    './src/js/bootstrap.js',
+    './src/js/bootstrap-datepicker.js',
+    './src/js/bootstrap-validator.js'
+  ])
     .pipe(concat('lib.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./app/js'));
@@ -76,12 +81,22 @@ gulp.task('build', function() {
 var watchTask = function() {
   gulp.src([
     './src/css/bootstrap.css',
+    './src/css/bootstrap-datepicker.css',
     './src/css/font-awesome.css',
     './src/css/main.css'
   ])
     .pipe(concat('style.min.css'))
     .pipe(minifycss())
     .pipe(gulp.dest('./app/css'));
+  gulp.src([
+    './src/js/jquery.js',
+    './src/js/bootstrap.js',
+    './src/js/bootstrap-datepicker.js',
+    './src/js/bootstrap-validator.js'
+  ])
+    .pipe(concat('lib.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./app/js'));
   gulp.src(['./src/js/main.js'])
     .pipe(concat('main.min.js'))
     .pipe(uglify())

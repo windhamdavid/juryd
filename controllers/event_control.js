@@ -31,7 +31,12 @@ exports.getEvent_new = function (req, res) {
 exports.postEvent_new= function(req, res, next) {
 
   var event = new Event({
-    eventname: req.body.eventname
+    eventname: req.body.eventname,
+    eventdesc: req.body.eventdesc,
+    eventopendate: req.body.eventopendate,
+    eventenddate: req.body.eventenddate,
+    registrationtype: req.body.registrationtype,
+    jurytype: req.body.jurytype,
   });
   
   var errors = req.validationErrors();
@@ -39,7 +44,6 @@ exports.postEvent_new= function(req, res, next) {
   Event.findOne({ eventname: req.body.eventname }, function(err, existingEvent) {
     if (existingEvent) {
       req.flash('errors', { msg: 'Event with that name already exists.' });
-      return res.redirect('/event/error');
     }
     event.save(function(err) {
       if (err) {

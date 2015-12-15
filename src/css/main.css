@@ -9,12 +9,16 @@ body {
 }
 body {
   background:rgba(238, 238, 238, 1);
+  padding-top: 60px;
 }
 
 a {
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
+}
+.fa {
+  margin-right: 6px;
 }
 
 
@@ -25,7 +29,11 @@ a {
 .navbar-default .navbar-header .navbar-brand {
   background-image:url(../img/ribbon.svg) no-repeat;
 }
-
+.navbar-nav img {
+  width: 30px;
+  height: 30px;
+  margin: -15px 15px -15px;
+}
 
 
 /* =================================================
@@ -65,30 +73,6 @@ header .header-content .header-content-inner p {
   color: rgba(255,255,255,.7);
 }
 
-@media(min-width:768px) {
-  header {
-    min-height: 100%;
-  }
-  header .header-content {
-    position: absolute;
-    top: 50%;
-    padding: 0 50px;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-  header .header-content .header-content-inner {
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 1000px;
-  }
-  header .header-content .header-content-inner p {
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 80%;
-    font-size: 18px;
-  }
-}
 
 .skew:before {
   content: '';
@@ -118,7 +102,7 @@ section {
   padding:50px 0;
 }
 #partial {
-  padding:150px 0;
+  
 }
 #about {
   background-color: rgba(255,255,255,.2);

@@ -21,7 +21,7 @@ exports.getEntry = function (req, res) {
 /********** GET / New Entry **************/
 
 exports.getEntry_new = function (req, res) {
-  res.render('entry/event_new', {
+  res.render('entry/entry_new', {
     title: 'Create an Entry'
   });
 };

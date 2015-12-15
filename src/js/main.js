@@ -6,6 +6,9 @@ $(window).scroll(function() {
   }
 });
 
+$('#datepicker.input-daterange').datepicker({});
+$('#event-form').validator()
+
 $(function(){
     jQuery('img.svg').each(function(){
         var $img = jQuery(this);

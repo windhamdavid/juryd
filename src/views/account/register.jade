@@ -9,20 +9,23 @@ block content
       hr
       .row
         .col-sm-8.col-sm-offset-2
-          form.form-horizontal(id='signup-form', method='POST')
+          form.form-horizontal(data-toggle='validator', id='signup-form', method='POST')
             input(type='hidden', name='_csrf', value=_csrf)
             .form-group
               label.col-sm-3.control-label(for='email') Email
               .col-sm-7
-                input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus)
+                input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, required='')
+                span.glyphicon.form-control-feedback(aria-hidden='true')
             .form-group
               label.col-sm-3.control-label(for='password') Password
               .col-sm-7
-                input.form-control(type='password', name='password', id='password', placeholder='Password')
+                input.form-control(type='password', name='password', id='password', placeholder='Password', required='', data-minlength='6')
+                span.glyphicon.form-control-feedback(aria-hidden='true')
             .form-group
               label.col-sm-3.control-label(for='confirmPassword') Confirm Password
               .col-sm-7
-                input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password')
+                input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', required='', data-match='#password', data-match-error="Passwords DO NOT match")
+                span.glyphicon.form-control-feedback(aria-hidden='true')
             .form-group
               .col-sm-offset-3.col-sm-7
                 button.btn.btn-success(type='submit')

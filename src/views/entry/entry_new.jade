@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  section#partial
+    .container
+      .row
+        .col-sm-8.col-sm-offset-2.text-center
+          h3 Create An Entry   
+      hr
+      .row
+        .col-sm-8.col-sm-offset-2
+          form.form-horizontal(id='entry-form', method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
+            .form-group
+              label.col-sm-3.control-label(for='entryname') Entry Name
+              .col-sm-7
+                input.form-control(type='text', name='entryname', id='entryname', value='', autofocus)
+            .form-group
+              label.col-sm-3.control-label(for='entryname') Entry Description
+              .col-sm-7
+                textarea.form-control(type='textarea', rows='5', name='entrydesc', id='entrydesc', value='', autofocus)
+            .form-group
+              .col-sm-offset-3.col-sm-7
+                button.btn.btn-success(type='submit')
+                  i.fa.fa-balance-scale
+                  | Create Entry

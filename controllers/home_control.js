@@ -1,10 +1,8 @@
 exports.index = function(req, res) {
   if (req.user) {
-    if (req.user) {
-      return res.redirect('/user/:username');
-    }
+    return res.redirect('/user/:username');
   }
-  res.render('pages/index', {
+  res.render('index', {
     title: 'You Be the Judge'
   });
 };

@@ -22,21 +22,23 @@ exports.getLogin = function (req, res) {
 /********** User GET / User URL **************/
 
 exports.getUserURL = function (req, res) {
-  User.find({ username: 'windhamdavid' }, function (err, username) {
-    console.log('%s', User.username);
-    console.log(req.originalUrl);
-    console.log(req.baseUrl);
-    console.log(req.path);
-    if (err) {
-      res.render('404', { url: req.url, error: '404 Not found' });
-      return;
-    }
-    var username = req.params.username;
-    res.render('account/user', {
-      title: username.User,
-      url: username.User
+  if (req.params.username) {
+    User.find({ username: req.params.username }, function (err, username) {
+      console.log('%s', User.username);
+      console.log(req.originalUrl);
+      console.log(req.baseUrl);
+      console.log(req.path);
+      if (!username) {
+        res.render('404', { url: req.url, error: '404 Not found' });
+        return;
+      }
+      var username = req.params.username;
+      res.render('account/user', {
+        title: username.User,
+        url: username.User
+      });
     });
-  });
+  };
 };
 
 /********** POST / Login **************/

@@ -107,7 +107,7 @@ var apiController = require('./controllers/api_control');
 router.get('/', homeController.index);
 router.get('/login', userController.getLogin);
 router.post('/login', userController.postLogin);
-router.get('/:username', userController.getUserURL);
+router.get('/user/:username', userController.getUserURL);
 
 router.get('/logout', userController.logout);
 router.get('/forgot', userController.getForgot);
