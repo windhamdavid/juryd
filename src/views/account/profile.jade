@@ -23,15 +23,6 @@ block content
             .col-sm-7
               input.form-control(type='text', name='username', id='username', value='#{user.profile.username}')
           .form-group
-            label.col-sm-3.control-label(for='gender') Gender
-            .col-sm-4
-              label.radio.col-sm-4
-                input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
-                span Male
-              label.radio.col-sm-4
-                input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
-                span Female
-          .form-group
             label.col-sm-3.control-label(for='location') Location
             .col-sm-7
               input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
@@ -87,4 +78,3 @@ block content
               button.btn.btn-danger(type='submit')
                 i.fa.fa-trash
                 | Delete my account
-

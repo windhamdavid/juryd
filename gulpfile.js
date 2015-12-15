@@ -86,12 +86,12 @@ var watchTask = function() {
     .pipe(concat('main.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./app/js'));
-  gulp.src('./src/views/**/*')
-    //.pipe(uglify())
-    .pipe(gulp.dest('./app/views'));
   gulp.src('./src/models/**/*')
     //.pipe(uglify())
     .pipe(gulp.dest('./app/models'));
+  gulp.src('./src/views/**/*')
+    //.pipe(uglify())
+    .pipe(gulp.dest('./app/views'));
   gulp.src('./src/controllers/**/*')
     //.pipe(uglify())
     .pipe(gulp.dest('./app/controllers'));
@@ -127,8 +127,13 @@ var nodemonTask = function() {
     env: { 'NODE_ENV': 'development' },
     script: 'app.js',
     verbose: true,
-    watch: ['./src/'],
-    ext: 'css js html jade hbs'
+    watch: [
+      './src/',
+      './models/',
+      './controllers',
+      './app.js'
+    ],
+    ext: 'js jade hbs html css'
   });
 };
 
