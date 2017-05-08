@@ -46,7 +46,7 @@ mongoose.connection.on('error', function() {
 
 /********** app.engine **************/
 
-app.set('port', process.env.PORT || 8282);
+app.set('port', process.env.PORT || 8383);
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
 app.use(compress());
