@@ -92,7 +92,7 @@ app.use(function(req, res, next) {
 /********** routes controllers **************/
 
 var router = express.Router();
-app.use(router);
+app.use('/', router);
 
 var homeController = require('./controllers/home_control');
 var userController = require('./controllers/user_control');
