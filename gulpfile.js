@@ -121,7 +121,7 @@ gulp.task('watch', function() {
 var syncTask = function() {
     browserSync.init({
         proxy: {
-          target: 'https://juryd.macs',
+          target: 'https://juryd-app.macs',
           ws: true
         },
         https: true,
@@ -148,7 +148,7 @@ var nodemonTask = function() {
       './controllers',
       './app.js'
     ],
-    ext: 'js jade hbs html css'
+    ext: 'js jade pug hbs html css'
   });
 };
 

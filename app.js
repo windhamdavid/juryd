@@ -12,7 +12,7 @@ var errorHandler = require('errorhandler');
 var events = require('events');
 var http = require('http');
 var path = require('path');
-var fs = require('fs');
+var fs = require('graceful-fs');
 var logger = require('morgan');
 
 var _ = require('lodash');
